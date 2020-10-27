@@ -7,7 +7,7 @@ Repo explaining README.md
 2. `fork` and `clone` repo
 3. Clone to local machine
 ```text
-git clone
+git clone https://github.com/wjlock/my-first-readme.git
 ```
 4. Go to `tic-tac-toe` directory
 5. Open `index.html` in browser
@@ -16,14 +16,32 @@ open index.html
 ```
 
 ```javascript
-const handleWin = (letter) => {
-  gameIsLive = false;
-  if (letter === "x") {
-    statusDiv.innerHTML = `${letterToSymbol(letter)} has won!`;
-  } else {
-    statusDiv.innerHTML = `<span>${letterToSymbol(letter)} has won!</span>`;
-  }
-};
+const handlePlayerClick = (e) => {
+    console.log(e.target.classList)
+    const cellValue = e.target.classList[1];
+    
+    const classList = e.target.classList;
+    const location = classList[1]
+    if (classList[2] === 'x' || classList[2] === 'o') {
+        return;
+    }
+
+
+
+    if (xIsNext === true) {
+        e.target.classList.add('x');
+        verifyGameStatus();
+    } else {
+        e.target.classList.add('o');
+        verifyGameStatus();
+    }
+}
+
+resetButton.addEventListener('click', handleReset);
+
+for (const cellDiv of cellDivs) {
+    cellDiv.addEventListener('click', handlePlayerClick)
+}
 ```
 
 ```css
@@ -54,5 +72,8 @@ const handleWin = (letter) => {
 
 | Functions | Description |
 | ----------- | ----------- |
-| `handleWin` | Handle win of either player |
-| `checkGameStatus` | Check the status after each turn |
+| `handlePlayerClick` | Handle every single click|
+| `verifyGameStatus` | Check the status after each turn |
+
+## Usage
+This game allows users to play Tic Tac Toe. Turns alternate between X and O, and win conditionas are checked on each click. The current turn and winner are both displayed at the bottom left.
